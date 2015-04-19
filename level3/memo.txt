@@ -4,4 +4,21 @@
 
 レビューを書くときに、リアルタイムでプレビューを表示するフォームを作る
 
+ng-model フォームのデータをモデルとしてbindingする。別のパーツからliveで参照できる。
 
+-----
+ReviewController
+
+
+ng-submit フォームがsubmitされた時に呼ばれる関数を指定。
+
+
+--------
+
+3.8 Form validation
+
+novalidate でブラウザによるDefault HTML ValidationをOFFにする。
+required で必須項目としてフォームアイテムをマークする
+reviewForm.$valid はフォームデータがvalidかどうかを示す
+
+invalidなデータが入れられたフォームアイテムのclass属性には、動的に .ng-invalid が付く。validなデータが入っていると.ng-validが付く。cssで調整してやるといい。
