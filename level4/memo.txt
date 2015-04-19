@@ -1,0 +1,24 @@
+4 custom directive
+-----------------------
+
+たとえばこういうコードを複数箇所で毎回書くケース。
+
+        <h3>{{product.name}}
+          <em class="pull-right">{{product.price | currency}}</em>
+          <img ng-src="{{product.images[0].full}}"/>
+        </h3>
+
+この重複をやめたい。
+
+ng-includeを使う
+
+HTTP requestが2つに別れる。ajaxで取られる。
+
+
+---
+directive
+
+Element Directive <product-title></product-title>
+Attribute Directive <h3 product-title></h3>
+
+
