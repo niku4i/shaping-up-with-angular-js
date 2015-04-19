@@ -1,0 +1,96 @@
+2.1
+
+Filters and a New Directive
+
+
+          <em class="pull-right">{{product.price | currency}}</em>
+ 
+ パイプでつなげる currencyフィルタで数値を通過に変換 = filter
+
+        <p>{{'12311111111114'| date: 'MM/dd/yyyy @ h:mma'}}</em>
+        <p>{{'test'| uppercase}}</em>
+        <p>{{'my descri'| limitTo:3}}</em>
+
+ほかにも ng-repeat="product in store.products | limitTo: 3"
+ ng-repeat="product in store.products | orderBy: '-price'"
+もある。
+
+
+ng-src
+
+イメージを挿入するときjavascriptの評価よりイメージが先に読まれるのでng-src directiveを使う。
+
+
+          <img ng-src="{{product.images[0].full}}"/>
+
+
+-----------
+2.6
+
+ng-click=で式が評価される
+
+            <li> <a href ng-click="tab = 1">Description</a> </li>
+
+
+クリックすると tab = 1 がセットされる
+
+{{tab}} でevalするとクリックする度に値が変わる。
+
+どうやってtabパネルの表示を切換えるか  = ng-show
+
+    <div class="panel" ng-show="tab === 2">
+
+クリックするとtabに値が入る。2が入ったときパネルが表示される!
+
+----
+
+reloadするとtabが消える。最初に開きたいタブを作るには。 = > ng-init
+
+ng-init スコープ内で変数の初期化をする。
+
+
+-----
+
+タブが選択されたときにタブ表示をactiveにしたい。bootstrapにはactiveクラスがあるのでそれを使うが、タブが選択されたことを検知してどうやってクラスをセットするのか?
+
+=> ng-class
+
+クラスをセットするdirective
+
+
+            <li ng-class="{ active:tab === 2 }">
+
+activeはクラス名 : 以降は条件。条件式がtrueの場合のみactiveクラスを追加する。
+
+
+-----
+
+
+今のこのコード viewがfat codeになった。どこへ移すべき? Controllerかもしれない。
+StoreControllerではなくPanel Controllerを導入する。
+
+  app.controller('PanelController', function() {
+  });
+
+
+ng-initはプロトタイピングで利用するにはいいのだけど、実際初期化処理はcontrollerに移すべき。
+
+  app.controller('PanelController', function() {
+    this.tab = 1;
+  });
+
+
+コントローラはこうなった
+
+  app.controller('PanelController', function() {
+    this.tab = 1;
+
+    this.selectTab = function(setTab) {
+      this.tab = setTab;
+    };
+    this.isSelected = function(checkTab) {
+      return this.tab === checkTab;
+    }
+
+  });
+
