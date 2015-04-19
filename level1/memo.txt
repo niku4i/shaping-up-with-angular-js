@@ -1,0 +1,55 @@
+directive 
+  * htmlを拡張したもの
+  * `<html ng-app="store">` この表現がdirective
+module
+  * 処理をカプセル化したもの
+  * module間の依存関係を定義するところ
+
+```
+var app = angular.module('store', [] );
+```
+store = application name
+[ ]  = dependencies 
+
+
+* expresiion
+
+{{}} でダイナミックにHTMLに値を入れれる機能
+
+
+-------
+
+1.3
+
+
+data 
+
+controller
+
+<div ng-controller="StoreController as store">
+でcontrollerを呼び出す。as xxx でコントローラをaliasで呼び出す。
+
+scopeがある。
+
+----
+
+directive = ng-show or ng-hide
+
+<button ng-show="store.product.canPurchase">こう書ける。trueの時のみボタンが現れる。
+
+
+directive = ng-repeat
+  配列をeachできる
+  <div ng-repeat="product in store.products">
+    <p>{{product.name}}</p>
+  </div>
+
+-----
+
+
+2.1
+
+Filters and a New Directive
+
+
+
